@@ -5,7 +5,7 @@ namespace LILPLP\ILeaf\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-use LILPLP\IBA\Leaf;
+use LILPLP\ILeaf\Leaf as Leaf;
 
 class Handler extends ExceptionHandler
 {

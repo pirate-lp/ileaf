@@ -42,16 +42,12 @@ class ILeafServiceProvider extends Provider
 	 * @return void
 	 */
 	public function register()
-	{
-		if (!Router::hasMacro('iba')) {
-            $this->registerRouteMacro();
-        }
-        
+	{        
         if (!Response::hasMacro('asset'))
         {
 	        $this->registerResponseMacro();
         }
-		$this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler','LILPLP\IBA\Exceptions\Handler');
+		$this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler','LILPLP\ILeaf\Exceptions\Handler');
 	}
 	
 	public function registerResponseMacro()
