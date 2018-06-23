@@ -1,0 +1,26 @@
+{
+    "name": "lil-plp/ileaf",
+    "description": "Flat file CMS for Laravel",
+    "type": "library",
+    "keywords": ["flat-file CMS", "Content Management System", "CMS", "Database CMS", "Laravel CMS", "Open Source CMS", "MIT Laravel CMS", "Hybrid CMS"],
+    "homepage": "http://iba.piratelp.com/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Scrappy Nobody",
+            "homepage": "http://lostideaslab.com/people/staff-co/scrappy-nobody/",
+            "email": "info@lostideaslab.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LILPLP\\IBA\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/yaml": "^3.2",
+        "michelf/php-markdown": "^1.8",
+        "erusev/parsedown-extra": "^0.7.1",
+    }
+}
