@@ -1,4 +1,4 @@
-@extends('iba::master')
+@extends('ileaf::master')
 
 @push('title') {{ $leaf['title'] }} | {{ $base['title'] }} @endpush
 

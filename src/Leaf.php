@@ -1,5 +1,5 @@
 <?php
-namespace LILPLP\IBA;
+namespace LILPLP\ILeaf;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -175,7 +175,7 @@ class Leaf {
 			$blade_file = 'leaf.' . $leaf['style'];
 			return $this->leafReturn($blade_file, compact('leaf', 'base', 'menu'), '200');
 		}
-		return 	$this->leafReturn('iba::leaf', compact('leaf', 'base', 'menu'), '200');
+		return 	$this->leafReturn('ileaf::leaf', compact('leaf', 'base', 'menu'), '200');
 	}
 	
 	public function check_status($leaf)

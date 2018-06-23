@@ -1,6 +1,6 @@
 <?php
 
-namespace LILPLP\IBA\Exceptions;
+namespace LILPLP\ILeaf\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
