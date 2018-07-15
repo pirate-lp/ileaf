@@ -1,4 +1,5 @@
 <?php
+
 namespace LILPLP\ILeaf;
 
 use Illuminate\Support\Facades\Storage;
@@ -13,9 +14,6 @@ use ParsedownExtra;
 
 use Michelf\Markdown as Markdown;
 use Michelf\MarkdownExtra as MarkdownExtra;
-// use Markdown;
-// use MarkdownExtra;
-// use Markdown;
 
 use Symfony\Component\Yaml\Yaml;
 

@@ -1,15 +1,15 @@
 {
     "name": "lil-plp/ileaf",
-    "description": "Flat file CMS for Laravel",
-    "type": "library",
-    "keywords": ["flat-file CMS", "Content Management System", "CMS", "Database CMS", "Laravel CMS", "Open Source CMS", "MIT Laravel CMS", "Hybrid CMS"],
-    "homepage": "http://iba.piratelp.com/",
+    "description": "Flat file content management system package for Laravel",
+    "type": "Laravel Package",
+    "keywords": ["Flatfile CMS", "Content Management System", "CMS", "Laravel CMS", "Open Source CMS", "Open Source Laravel CMS", "Flatfile Laravel CMS"],
+    "homepage": "https://iba.piratelp.com/components/ileaf/",
     "license": "MIT",
     "authors": [
         {
             "name": "Scrappy Nobody",
-            "homepage": "http://lostideaslab.com/people/staff-co/scrappy-nobody/",
-            "email": "info@lostideaslab.com",
+            "homepage": "https://lostideaslab.com/people/staff-co/scrappy-nobody/",
+            "email": "developer@lostideaslab.com",
             "role": "Developer"
         }
     ],
