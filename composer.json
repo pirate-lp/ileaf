@@ -1,5 +1,5 @@
 {
-    "name": "pirate-lp/ileaf",
+    "name": "piratelp/ileaf",
     "description": "Flat file content management system package for Laravel",
     "type": "Laravel Package",
     "keywords": ["Flatfile CMS", "Content Management System", "CMS", "Laravel CMS", "Open Source CMS", "Open Source Laravel CMS", "Flatfile Laravel CMS"],
