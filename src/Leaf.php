@@ -30,7 +30,6 @@ class Leaf {
     {
 	    $this->path = $uri;
 	    $this->uri = $this->exists($uri);
-// 	    dd($this->uri);
 	    if ( $this->uri )
 	    {
 		    $uri_parts = explode('/', $uri);
@@ -111,7 +110,6 @@ class Leaf {
 // 		$leaf['content'] = $extra->text($content_css);
 
 		$extra = new MarkdownExtra;
-// 		dd($extra);
 // 		$parser->fn_id_prefix = "post22-";
 		
 // 		$my_html = $parser->transform($my_text);
@@ -214,11 +212,9 @@ class Leaf {
 	
 	public function retriveChildrenMetas()
 	{
-		$uri = rtrim($this->uri, "index.md");
-		$uri = rtrim($uri, "index.md");
+		$uri = preg_replace('/index.md$/', '', $this->uri);
+		$uri = preg_replace('/index.md$/', '', $uri);
 		$return = array();
-// 		dd($uri);
-// 		dd(Storage::disk('leaves')->files($uri));
 		foreach (Storage::disk('leaves')->files($uri) as $file)
 		{
 			if ($file != ($this->uri) )

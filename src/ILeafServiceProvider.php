@@ -54,7 +54,7 @@ class ILeafServiceProvider extends Provider
 	{
 		Response::macro('asset', function ($asset_name, $uri, $disk = "ibook")
 		{
-			if ( substr($asset_name, -3) == 'mp4' )
+			if ( substr($asset_name, -4) === '.mp4' )
 			{
 				$file = '/var/www/lostideaslab/storage/' . $disk . '/' . $uri;
 				$mime = 'video/mp4';
@@ -130,14 +130,14 @@ class ILeafServiceProvider extends Provider
 
 
 			}
-			else if (substr($asset_name, -4) == 'html')
+			elseif (substr($asset_name, -5) === '.html')
 			{
-				$uri = rtrim($uri, '.html') . '/';
+				$uri = preg_replace('/.html$/', '', $uri)  . '/';
 				return redirect($uri);
 			}
-			else if (substr($asset_name, -2) == 'md')
+			elseif (substr($asset_name, -3) === '.md')
 			{
-				$uri = rtrim($uri, '.md') . '/';
+				$uri = preg_replace('/.md$/', '', $uri) . '/';
 				return redirect($uri);
 			}
 			else
