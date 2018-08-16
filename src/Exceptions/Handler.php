@@ -1,11 +1,11 @@
 <?php
 
-namespace LILPLP\ILeaf\Exceptions;
+namespace PirateLP\ILeaf\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-use LILPLP\ILeaf\Leaf as Leaf;
+use PirateLP\ILeaf\Leaf as Leaf;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +50,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+	    
 	    try {
 		    $uri = $request->path();
 			$leaf = new Leaf($uri);

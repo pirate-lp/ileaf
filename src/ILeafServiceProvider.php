@@ -1,6 +1,6 @@
 <?php
 
-namespace LILPLP\ILeaf;
+namespace PirateLP\ILeaf;
 
 use Illuminate\Support\Facades\View as View;
 use Illuminate\Support\Facades\Response as Response;
@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider as Provider;
 use Illuminate\Support\Facades\Route;
 
-use LILPLP\IBA\Console\ModelMakeCommand as ModelMakeCommand;
-use LILPLP\IBA\Console\MigrateMakeCommand as MigrateMakeCommand;
-use LILPLP\IBA\Console\ControllerMakeCommand as ControllerMakeCommand;
-use LILPLP\IBA\Console\BookMakeCommand;
+use PirateLP\IBA\Console\ModelMakeCommand as ModelMakeCommand;
+use PirateLP\IBA\Console\MigrateMakeCommand as MigrateMakeCommand;
+use PirateLP\IBA\Console\ControllerMakeCommand as ControllerMakeCommand;
+use PirateLP\IBA\Console\BookMakeCommand;
 
 use Illuminate\Routing\Router;
 
@@ -47,7 +47,7 @@ class ILeafServiceProvider extends Provider
         {
 	        $this->registerResponseMacro();
         }
-		$this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler','LILPLP\ILeaf\Exceptions\Handler');
+		$this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler','PirateLP\ILeaf\Exceptions\Handler');
 	}
 	
 	public function registerResponseMacro()

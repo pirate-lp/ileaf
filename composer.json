@@ -15,7 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "LILPLP\\ILeaf\\": "src/"
+            "PirateLP\\ILeaf\\": "src/"
         }
     },
     "require": {
