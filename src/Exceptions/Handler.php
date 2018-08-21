@@ -50,7 +50,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-	    
 	    try {
 		    $uri = $request->path();
 			$leaf = new Leaf($uri);

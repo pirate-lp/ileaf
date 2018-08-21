@@ -165,20 +165,11 @@ class Leaf {
 		{
 			$leaf['children'] = $this->retriveChildrenMetas();
 		}
-		
 		if ( array_key_exists('style', $leaf) )
 		{
-			$view_path = 'leaf'; // default path
-			if ( isset(config('iba-leaf.views-path')) )
-			{
-				$blade_file = config('iba-leaf.views-path');
-			}
-
-			$view_path = $view_path . $leaf['style'];
-			
+			$view_path = config('iba-ileaf.views-path') . '.' . $leaf['style'];
 			return $this->leafReturn($view_path, compact('leaf', 'base', 'menu'), '200');
 		}
-		
 		return 	$this->leafReturn('ileaf::leaf', compact('leaf', 'base', 'menu'), '200');
 	}
 	
