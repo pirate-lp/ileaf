@@ -29,10 +29,14 @@ class ILeafServiceProvider extends Provider
 	{
 		$this->app->make('Illuminate\Contracts\Http\Kernel')->pushMiddleware('Illuminate\Session\Middleware\StartSession');
 		
+		$this->publishes([
+        	__DIR__.'/config/iba-ileaf.php' => config_path('iba-ileaf.php'),
+		]);
+		
 		$this->loadViewsFrom(__DIR__.'/resources/views', 'ileaf');
 		
 		$this->publishes([
-				__DIR__.'/public' => public_path('lil-plp/ileaf'),
+				__DIR__.'/public' => public_path('piratelp/ileaf'),
 			], 'public');
 	}
 
