@@ -168,9 +168,17 @@ class Leaf {
 		
 		if ( array_key_exists('style', $leaf) )
 		{
-			$blade_file = 'leaf.' . $leaf['style'];
-			return $this->leafReturn($blade_file, compact('leaf', 'base', 'menu'), '200');
+			$view_path = 'leaf'; // default path
+			if ( isset(config('iba-leaf.views-path')) )
+			{
+				$blade_file = config('iba-leaf.views-path');
+			}
+
+			$view_path = $view_path . $leaf['style'];
+			
+			return $this->leafReturn($view_path, compact('leaf', 'base', 'menu'), '200');
 		}
+		
 		return 	$this->leafReturn('ileaf::leaf', compact('leaf', 'base', 'menu'), '200');
 	}
 	
