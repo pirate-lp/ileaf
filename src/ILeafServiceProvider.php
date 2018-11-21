@@ -27,8 +27,6 @@ class ILeafServiceProvider extends Provider
 	 */
 	public function boot()
 	{
-		$this->app->make('Illuminate\Contracts\Http\Kernel')->pushMiddleware('Illuminate\Session\Middleware\StartSession');
-		
 		$this->publishes([
         	__DIR__.'/config/iba-ileaf.php' => config_path('iba-ileaf.php'),
 		]);
