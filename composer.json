@@ -1,8 +1,8 @@
 {
-    "name": "piratelp/rms",
-    "description": "Reader management system for Interactive Books' Atelier.",
+    "name": "piratelp/ileaf",
+    "description": "Interactive Leaf: Flat file CMS component of Interactive Books' Atelier.",
     "type": "package",
-    "keywords": ["Reader Management System"],
+    "keywords": ["Flatfile CMS", "Laravel CMS"],
     "homepage": "https://iba.piratelp.xyz/components/rms/",
     "license": "MIT",
     "authors": [
@@ -15,7 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "PirateLP\\RMS\\": "src/"
+            "PirateLP\\ILeaf\\": "src/"
         }
     },
     "require": {
