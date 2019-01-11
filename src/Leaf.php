@@ -35,7 +35,7 @@ class Leaf {
 	    
 	    $this->setDisk('leaves');
 	    
-	    $this->setViewPath();
+	    $this->setViewsPath();
 	    $this->setDomain();
 	    
 	    $this->path = $uri;
@@ -46,6 +46,7 @@ class Leaf {
 			$this->constructBase();
 			$this->menu = $this->constructMenu($uri_parts[0]);
 	    }
+	    
 	    return $this->uri;
     }
     
