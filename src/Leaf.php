@@ -24,10 +24,20 @@ class Leaf {
     public $base;
     public $path;
     
+    private $disk;
+    private $domain;
+    private $views_path;
+    
     protected $slug;
     
     function __construct($uri)
     {
+	    
+	    $this->setDisk('leaves');
+	    
+	    $this->setViewPath();
+	    $this->setDomain();
+	    
 	    $this->path = $uri;
 	    $this->uri = $this->exists($uri);
 	    if ( $this->uri )
@@ -39,20 +49,46 @@ class Leaf {
 	    return $this->uri;
     }
     
+    private function setDisk($name)
+    {
+	    $this->disk = Storage::disk($name);
+    }
+    
+    private function setViewsPath($path = null)
+    {
+	    $this->views_path = (!$path) ? $path . ".leaf" : null;
+    }
+    
+    private function setDomain() {
+	    $domains = config('iba-ileaf.domain');
+	    if ( count($domains) > 0 )
+	    {
+		    $host = $_SERVER['HTTP_HOST'];
+			if ( in_array($host, $domains) )
+			{
+				$this->domain = $host;
+				$this->setDisk($host);
+				$this->setViewPath($host);
+				return true;
+			}
+	    }
+		return false;
+    }
+    
     public function exists($uri)
 	{
 		$file = rtrim($uri,'/') . ".md";
 		$directory = $uri . "/index.md";
 		$asset = $uri;
-		if ( Storage::disk('leaves')->exists($file) ) {
+		if ( $this->disk->exists($file) ) {
 			$this->type = "file";
 			return $file;
 		}
-		if ( Storage::disk('leaves')->exists($directory) ) {
+		if ( $this->disk->exists($directory) ) {
 			$this->type = "directory";
 			return $directory;
 		}
-		if ( Storage::disk('leaves')->exists($asset) ) {
+		if ( $this->disk->exists($asset) ) {
 			$this->type = "asset";
 			return $asset;
 		}
@@ -64,14 +100,14 @@ class Leaf {
 		$uri_parts = explode('/', $this->uri);
 		
 		$base = $uri_parts[0] . '/index.md';
-		if ( Storage::disk('leaves')->exists($base) )
+		if ( $this->disk->exists($base) )
 		{
 			$this->base = $this->retriveMetas($base, 'leaves');
 			$this->base['slug'] = $uri_parts[0];
 		}
 		
 		$base = $uri_parts[0] . '/index.html';
-		if ( Storage::disk('leaves')->exists($base) )
+		if ( $this->disk->exists($base) )
 		{
 			$this->base = $this->retriveMetas($base, 'leaves');
 			$this->base['slug'] = $uri_parts[0];
@@ -148,7 +184,7 @@ class Leaf {
 				return $this->display();
 				break;
 			case "asset":
-				$asset = Storage::disk('leaves')->get($this->uri);
+				$asset = $this->disk->get($this->uri);
 				$asset_name = last(explode('/', $this->uri));
 				return response()->asset($asset_name, $this->uri, 'leaves');
 				break;
@@ -161,16 +197,36 @@ class Leaf {
 		$menu = $this->menu;
 		
 		$uri_parts = explode('/', $this->uri);
-		if ( (end($uri_parts) == "index.md") || (end($uri_parts) == "index.html") || Storage::disk('leaves')->exists($this->path ) )
+		if ( (end($uri_parts) == "index.md") || (end($uri_parts) == "index.html") || $this->disk->exists($this->path ) )
 		{
 			$leaf['children'] = $this->retriveChildrenMetas();
 		}
+		
+		$view = $this->putView($leaf);
+		
+		return 	$this->leafReturn($view, compact('leaf', 'base', 'menu'), '200');
+	}
+	
+	private function putView($leaf)
+	{
 		if ( array_key_exists('style', $leaf) )
 		{
-			$view_path = config('iba-ileaf.views-path') . '.' . $leaf['style'];
-			return $this->leafReturn($view_path, compact('leaf', 'base', 'menu'), '200');
+			$view = $this->views_path . '.' . $leaf['style'];
+			if ( view()->exists($view) )
+			{
+				return $view;
+			}
+		} 
+		elseif ( $this->views_path )
+		{
+			$this->views_path . ".leaf";
+			if ( view()->exists($view) )
+			{
+				return $view;
+			}
 		}
-		return 	$this->leafReturn('ileaf::leaf', compact('leaf', 'base', 'menu'), '200');
+		$view = "ileaf::leaf";
+		return $view;
 	}
 	
 	public function check_status($leaf)
@@ -202,9 +258,9 @@ class Leaf {
 	
 	public function constructMenu($base) {
 		$directories = [];
-		foreach ( Storage::disk('leaves')->directories($base) as $sub )
+		foreach ( $this->disk->directories($base) as $sub )
 		{
-			$directories[$sub] = Storage::disk('leaves')->directories($sub);
+			$directories[$sub] = $this->disk->directories($sub);
 		}
 		return $directories;
 	}
@@ -214,7 +270,7 @@ class Leaf {
 		$uri = preg_replace('/index.md$/', '', $this->uri);
 		$uri = preg_replace('/index.md$/', '', $uri);
 		$return = array();
-		foreach (Storage::disk('leaves')->files($uri) as $file)
+		foreach ($this->disk->files($uri) as $file)
 		{
 			if ($file != ($this->uri) )
 			{

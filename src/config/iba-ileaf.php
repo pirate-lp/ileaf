@@ -2,6 +2,7 @@
 	
 return [
 	'host' => env('APP_URL', 'http://localhost'),
+	'domain' => [],
 	'name' => env('APP_NAME', ''),
-	'views-path' => 'leaf' // without the ending "dot"
+	'viewss_path' => 'leaf' // without the ending "dot"
 ];

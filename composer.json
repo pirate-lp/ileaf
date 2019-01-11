@@ -1,9 +1,9 @@
 {
-    "name": "piratelp/ileaf",
-    "description": "Flat file content management system package for Laravel",
-    "type": "cms",
-    "keywords": ["Flatfile CMS", "Content Management System", "CMS", "Laravel CMS", "Open Source CMS", "Open Source Laravel CMS", "Flatfile Laravel CMS"],
-    "homepage": "https://iba.piratelp.com/components/ileaf/",
+    "name": "piratelp/rms",
+    "description": "Reader management system for Interactive Books' Atelier.",
+    "type": "package",
+    "keywords": ["Reader Management System"],
+    "homepage": "https://iba.piratelp.xyz/components/rms/",
     "license": "MIT",
     "authors": [
         {
@@ -15,7 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "PirateLP\\ILeaf\\": "src/"
+            "PirateLP\\RMS\\": "src/"
         }
     },
     "require": {
