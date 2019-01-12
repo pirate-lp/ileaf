@@ -20,63 +20,67 @@ use Symfony\Component\Yaml\Yaml;
 class Leaf {
 	
 	public $type;
-    public $uri;
-    public $base;
-    public $path;
-    
-    private $disk;
-    private $domain;
-    private $views_path;
-    
-    protected $slug;
-    
-    function __construct($uri)
-    {
-	    
-	    $this->setDisk('leaves');
-	    
-	    $this->setViewsPath();
-	    $this->setDomain();
-	    
-	    $this->path = $uri;
-	    $this->uri = $this->exists($uri);
-	    if ( $this->uri )
-	    {
-		    $uri_parts = explode('/', $uri);
+	public $uri;
+	public $base;
+	public $path;
+	
+	private $disk_name;
+	private $disk;
+	private $host;
+	private $domain;
+	private $views_path;
+	
+	protected $slug;
+	
+	function __construct($uri)
+	{
+		$this->disk = Storage::disk('leaves');	   
+		$this->disk_name = 'leaves'; 
+		$this->views_path = null;
+		$this->setDomain();
+		
+		$this->path = $uri;
+		$this->uri = $this->exists($uri);
+		
+		if ( $this->uri )
+		{
+			$uri_parts = explode('/', $uri);
 			$this->constructBase();
 			$this->menu = $this->constructMenu($uri_parts[0]);
-	    }
-	    
-	    return $this->uri;
-    }
-    
-    private function setDisk($name)
-    {
-	    $this->disk = Storage::disk($name);
-    }
-    
-    private function setViewsPath($path = null)
-    {
-	    $this->views_path = (!$path) ? $path . ".leaf" : null;
-    }
-    
-    private function setDomain() {
-	    $domains = config('iba-ileaf.domain');
-	    if ( count($domains) > 0 )
-	    {
-		    $host = $_SERVER['HTTP_HOST'];
-			if ( in_array($host, $domains) )
+		}
+	   
+		return $this->uri;
+	}
+	
+	private function setViewsPath($path)
+	{
+		config(['theme::domain' => $this->domain . '::']);
+		config(['theme::url' => $this->host]);
+		$title = config('theme::'. $this->domain);
+		config(['theme::title' => $title]);
+		$this->views_path = $path;
+	}
+	
+	private function setDomain() {
+		$domains = config('iba-ileaf.domain');
+		if ( count($domains) > 0 )
+		{
+			$this->host = $_SERVER['HTTP_HOST'];
+			
+			if ( in_array($this->host, $domains) )
 			{
-				$this->domain = $host;
-				$this->setDisk($host);
-				$this->setViewPath($host);
+				preg_match('/([^.]+)\.[^.]+$/', $this->host, $preg_results);
+				$this->domain = $preg_results[1];
+				$this->disk = Storage::disk($this->domain);
+				
+				$this->setViewsPath($this->domain);
 				return true;
 			}
-	    }
+		}
 		return false;
-    }
-    
-    public function exists($uri)
+	}
+	
+	public function exists($uri)
 	{
 		$file = rtrim($uri,'/') . ".md";
 		$directory = $uri . "/index.md";
@@ -103,14 +107,14 @@ class Leaf {
 		$base = $uri_parts[0] . '/index.md';
 		if ( $this->disk->exists($base) )
 		{
-			$this->base = $this->retriveMetas($base, 'leaves');
+			$this->base = $this->retriveMetas($base);
 			$this->base['slug'] = $uri_parts[0];
 		}
 		
 		$base = $uri_parts[0] . '/index.html';
 		if ( $this->disk->exists($base) )
 		{
-			$this->base = $this->retriveMetas($base, 'leaves');
+			$this->base = $this->retriveMetas($base);
 			$this->base['slug'] = $uri_parts[0];
 		}
 	}
@@ -121,28 +125,28 @@ class Leaf {
 		if ( !empty(config('iba.short_keys')) )
 		{
 			$cssStandards = config('iba.short_keys');
-	        $keys = $values = array();
-	        foreach ($cssStandards as $key => $value) {
-			    $keys[] = '%' . $key . '%';
-			    $values[] = $value;
-	        }
-	        return str_replace($keys, $values, $content);
-        }
-        return $content;
+			$keys = $values = array();
+			foreach ($cssStandards as $key => $value) {
+				$keys[] = '%' . $key . '%';
+				$values[] = $value;
+			}
+			return str_replace($keys, $values, $content);
+		}
+		return $content;
 	}
-    
-    
-    public function render($file, $disk = 'seed')
+	
+	
+	public function render($file)
 	{
-	    $leaf = $this->retriveMetas($file, $disk);
-	    $this->check_status($leaf);
-	    $rawContent = Storage::disk($disk)->get($file);
-	    $leaf['slug'] = $this->slug;
-	    
-	    $metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
-	    . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
-	    $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
-	    $content_css = $this->cssStandards($content);
+		$leaf = $this->retriveMetas($file);
+		$this->checkStatus($leaf);
+		$rawContent = $this->disk->get($file);
+		$leaf['slug'] = $this->slug;
+		
+		$metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
+		. "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
+		$content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
+		$content_css = $this->cssStandards($content);
 // 		$extra = new ParsedownExtra();
 // 		$leaf['content'] = $extra->text($content_css);
 
@@ -152,26 +156,26 @@ class Leaf {
 // 		$my_html = $parser->transform($my_text);
 		$leaf['content'] = $extra->transform($content_css);
 		
-	    return $leaf;
+		return $leaf;
 	}
 	
-	public function retriveMetas($file, $disk)
+	public function retriveMetas($file)
 	{
 		$metas = false;
-		$rawContent = Storage::disk($disk)->get($file);
-	    $pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
+		$rawContent = $this->disk->get($file);
+		$pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
 	 . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
-	    if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3]))
-	    {
-	        $metas = Yaml::parse($rawMetaMatches[3]);
-	        $metas = ($metas !== null) ? array_change_key_case($metas, CASE_LOWER) : array();
-	    }
-	    return $metas;
+		if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3]))
+		{
+			$metas = Yaml::parse($rawMetaMatches[3]);
+			$metas = ($metas !== null) ? array_change_key_case($metas, CASE_LOWER) : array();
+		}
+		return $metas;
 	}
 	
 	public function content() {
 		
-		$leaf = $this->render($this->uri, 'leaves');
+		$leaf = $this->render($this->uri);
 		$base = $this->base;
 		return 	response()->json($leaf);
 	}
@@ -187,13 +191,13 @@ class Leaf {
 			case "asset":
 				$asset = $this->disk->get($this->uri);
 				$asset_name = last(explode('/', $this->uri));
-				return response()->asset($asset_name, $this->uri, 'leaves');
+				return response()->asset($asset_name, $this->uri, $this->disk_name);
 				break;
 		}
 	}
 	
 	public function display() {
-		$leaf = $this->render($this->uri, 'leaves');
+		$leaf = $this->render($this->uri);
 		$base = $this->base;
 		$menu = $this->menu;
 		
@@ -204,8 +208,8 @@ class Leaf {
 		}
 		
 		$view = $this->putView($leaf);
-		
-		return 	$this->leafReturn($view, compact('leaf', 'base', 'menu'), '200');
+		$domain = ($this->domain) ? $this->domain : null;
+		return 	$this->leafReturn($view, compact('leaf', 'base', 'menu', 'domain'), '200');
 	}
 	
 	private function putView($leaf)
@@ -220,7 +224,7 @@ class Leaf {
 		} 
 		elseif ( $this->views_path )
 		{
-			$this->views_path . ".leaf";
+			$view = $this->views_path . ".leaf";
 			if ( view()->exists($view) )
 			{
 				return $view;
@@ -230,7 +234,7 @@ class Leaf {
 		return $view;
 	}
 	
-	public function check_status($leaf)
+	public function checkStatus($leaf)
 	{
 		if (array_key_exists('status', $leaf))
 		{
@@ -275,7 +279,7 @@ class Leaf {
 		{
 			if ($file != ($this->uri) )
 			{
-				$metas = $this->retriveMetas($file, 'leaves');
+				$metas = $this->retriveMetas($file);
 				if ($metas != false)
 				{
 					$return[$file] = $metas;
