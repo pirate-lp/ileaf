@@ -54,10 +54,10 @@ class Leaf {
 	
 	private function setViewsPath($path)
 	{
-		config(['theme::domain' => $this->domain . '::']);
-		config(['theme::url' => $this->host]);
-		$title = config('theme::'. $this->domain);
-		config(['theme::title' => $title]);
+		config(['theme.domain' => $this->domain . '::']);
+		config(['theme.host' => request()->url()]);
+		$title = config('theme.titles.'. $this->domain);
+		config(['theme.title' => $title]);
 		$this->views_path = $path;
 	}
 	
