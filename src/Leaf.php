@@ -36,7 +36,7 @@ class Leaf {
 	{
 		$this->disk = Storage::disk('leaves');	   
 		$this->disk_name = 'leaves'; 
-		$this->views_path = null;
+		$this->views_path = config('iba-ileaf.views_path');
 		$this->setDomain();
 		
 		$this->path = $uri;
