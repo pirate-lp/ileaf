@@ -1,6 +1,6 @@
 <?php
 
-namespace PirateLP\ILeaf;
+namespace iAtelier\ILeaf;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class Leaf {
 	{
 		$this->disk = Storage::disk('leaves');	   
 		$this->disk_name = 'leaves'; 
-		$this->views_path = config('iba-ileaf.views_path');
+		$this->views_path = config('iatelier-ileaf.views_path');
 		$this->setDomain();
 		
 		$this->path = $uri;
@@ -62,7 +62,7 @@ class Leaf {
 	}
 	
 	private function setDomain() {
-		$domains = config('iba-ileaf.domain');
+		$domains = config('iatelier-ileaf.domain');
 		if ( count($domains) > 0 )
 		{
 			$this->host = $_SERVER['HTTP_HOST'];
@@ -122,9 +122,9 @@ class Leaf {
 	
 	public function cssStandards($content)
 	{
-		if ( !empty(config('iba.short_keys')) )
+		if ( !empty(config('iatelier.short_keys')) )
 		{
-			$cssStandards = config('iba.short_keys');
+			$cssStandards = config('iatelier.short_keys');
 			$keys = $values = array();
 			foreach ($cssStandards as $key => $value) {
 				$keys[] = '%' . $key . '%';

@@ -1,9 +1,9 @@
 <?php
 
-namespace PirateLP\ILeaf;
+namespace iAtelier\ILeaf;
 
 use Illuminate\Routing\Controller as Controller;
-use PirateLP\ILeaf\Leaf;
+use iAtelier\ILeaf\Leaf;
 
 use Illuminate\Http\Request;
 

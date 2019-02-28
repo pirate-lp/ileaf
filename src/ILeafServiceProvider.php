@@ -1,6 +1,6 @@
 <?php
 
-namespace PirateLP\ILeaf;
+namespace iAtelier\ILeaf;
 
 use Illuminate\Support\Facades\View as View;
 use Illuminate\Support\Facades\Response as Response;
@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider as Provider;
 use Illuminate\Support\Facades\Route;
 
-use PirateLP\IBA\Console\ModelMakeCommand as ModelMakeCommand;
-use PirateLP\IBA\Console\MigrateMakeCommand as MigrateMakeCommand;
-use PirateLP\IBA\Console\ControllerMakeCommand as ControllerMakeCommand;
-use PirateLP\IBA\Console\BookMakeCommand;
+use iAtelier\IBA\Console\ModelMakeCommand as ModelMakeCommand;
+use iAtelier\IBA\Console\MigrateMakeCommand as MigrateMakeCommand;
+use iAtelier\IBA\Console\ControllerMakeCommand as ControllerMakeCommand;
+use iAtelier\IBA\Console\BookMakeCommand;
 
 use Illuminate\Routing\Router;
 
@@ -28,13 +28,13 @@ class ILeafServiceProvider extends Provider
 	public function boot()
 	{
 		$this->publishes([
-        	__DIR__.'/config/iba-ileaf.php' => config_path('iba-ileaf.php'),
+        	__DIR__.'/config/iatelier-ileaf.php' => config_path('iatelier-ileaf.php'),
 		]);
 		
 		$this->loadViewsFrom(__DIR__.'/resources/views', 'ileaf');
 		
 		$this->publishes([
-				__DIR__.'/public' => public_path('piratelp/ileaf'),
+				__DIR__.'/public' => public_path('iatelier/ileaf'),
 			], 'public');
 	}
 
@@ -49,7 +49,7 @@ class ILeafServiceProvider extends Provider
         {
 	        $this->registerResponseMacro();
         }
-		$this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler','PirateLP\ILeaf\Exceptions\Handler');
+		$this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler','iAtelier\ILeaf\Exceptions\Handler');
 	}
 	
 	public function registerResponseMacro()

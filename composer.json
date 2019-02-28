@@ -1,21 +1,21 @@
 {
-    "name": "piratelp/ileaf",
-    "description": "Interactive Leaf: Flat file CMS component of Interactive Books' Atelier.",
+    "name": "iatelier/ileaf",
+    "description": "Interactive Leaf: Flat file CMS component of iAtelier.",
     "type": "package",
-    "keywords": ["Flatfile CMS", "Laravel CMS"],
-    "homepage": "https://iba.piratelp.xyz/components/rms/",
+    "keywords": ["Flatfile CMS", "Laravel CMS", "CMS"],
+    "homepage": "https://iatelier.piratesatelier.xyz/components/ileaf/",
     "license": "MIT",
     "authors": [
         {
-            "name": "Scrappy Nobody",
-            "homepage": "https://ideasgalaxies.com/people/team/scrappy-nobody/",
-            "email": "piratelp@ideasgalaxies.com",
+            "name": "Captain Husayn Pinguin",
+            "homepage": "https://earthlinghusayn.xyz",
+            "email": "captainhusanpinguin@galacticvisions.com",
             "role": "Developer"
         }
     ],
     "autoload": {
         "psr-4": {
-            "PirateLP\\ILeaf\\": "src/"
+            "iAtelier\\ILeaf\\": "src/"
         }
     },
     "require": {

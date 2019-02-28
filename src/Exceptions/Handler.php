@@ -1,11 +1,11 @@
 <?php
 
-namespace PirateLP\ILeaf\Exceptions;
+namespace iAtelier\ILeaf\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-use PirateLP\ILeaf\Leaf as Leaf;
+use iAtelier\ILeaf\Leaf as Leaf;
 
 class Handler extends ExceptionHandler
 {
