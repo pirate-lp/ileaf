@@ -1,9 +1,9 @@
 <?php
 
-namespace iAtelier\ILeaf;
+namespace IAtelier\ILeaf;
 
 use Illuminate\Routing\Controller as Controller;
-use iAtelier\ILeaf\Leaf;
+use IAtelier\ILeaf\Leaf;
 
 use Illuminate\Http\Request;
 

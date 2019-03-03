@@ -1,6 +1,6 @@
 <?php
 
-namespace iAtelier\ILeaf;
+namespace IAtelier\ILeaf;
 
 use Illuminate\Support\Facades\View as View;
 use Illuminate\Support\Facades\Response as Response;
@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider as Provider;
 use Illuminate\Support\Facades\Route;
 
-use iAtelier\IBA\Console\ModelMakeCommand as ModelMakeCommand;
-use iAtelier\IBA\Console\MigrateMakeCommand as MigrateMakeCommand;
-use iAtelier\IBA\Console\ControllerMakeCommand as ControllerMakeCommand;
-use iAtelier\IBA\Console\BookMakeCommand;
+use IAtelier\IBA\Console\ModelMakeCommand as ModelMakeCommand;
+use IAtelier\IBA\Console\MigrateMakeCommand as MigrateMakeCommand;
+use IAtelier\IBA\Console\ControllerMakeCommand as ControllerMakeCommand;
+use IAtelier\IBA\Console\BookMakeCommand;
 
 use Illuminate\Routing\Router;
 
@@ -49,7 +49,7 @@ class ILeafServiceProvider extends Provider
         {
 	        $this->registerResponseMacro();
         }
-		$this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler','iAtelier\ILeaf\Exceptions\Handler');
+		$this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler','IAtelier\ILeaf\Exceptions\Handler');
 	}
 	
 	public function registerResponseMacro()

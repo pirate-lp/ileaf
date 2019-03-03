@@ -1,6 +1,6 @@
 {
     "name": "iatelier/ileaf",
-    "description": "Interactive Leaf: Flat file CMS component of iAtelier.",
+    "description": "Interactive Leaf: Flat file CMS component of IAtelier.",
     "type": "package",
     "keywords": ["Flatfile CMS", "Laravel CMS", "CMS"],
     "homepage": "https://iatelier.piratesatelier.xyz/components/ileaf/",
@@ -15,7 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "iAtelier\\ILeaf\\": "src/"
+            "IAtelier\\ILeaf\\": "src/"
         }
     },
     "require": {

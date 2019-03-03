@@ -1,11 +1,11 @@
 <?php
 
-namespace iAtelier\ILeaf\Exceptions;
+namespace IAtelier\ILeaf\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-use iAtelier\ILeaf\Leaf as Leaf;
+use IAtelier\ILeaf\Leaf as Leaf;
 
 class Handler extends ExceptionHandler
 {

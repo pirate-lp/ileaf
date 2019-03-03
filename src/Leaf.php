@@ -1,6 +1,6 @@
 <?php
 
-namespace iAtelier\ILeaf;
+namespace IAtelier\ILeaf;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
