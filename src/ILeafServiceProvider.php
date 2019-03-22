@@ -162,7 +162,7 @@ class ILeafServiceProvider extends Provider
 			else
 			{
 				return response()->download(
-					Storage::disk($disk)->url($uri),
+					Storage::disk($disk)->get($uri),
 					$asset_name
 				);
 			}
