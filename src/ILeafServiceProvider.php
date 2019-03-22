@@ -54,6 +54,8 @@ class ILeafServiceProvider extends Provider
 	
 	public function registerResponseMacro()
 	{
+		// 
+		// $uri: is web uri (which contains the "asset's name" in itself too.
 		Response::macro('asset', function ($asset_name, $uri, $disk = "ibook")
 		{
 			if ( substr($asset_name, -4) === '.mp4' )
