@@ -144,16 +144,15 @@ class ILeafServiceProvider extends Provider
 				return redirect($uri);
 			}
 			elseif (
-				(substr($asset_name, -4) === '.jpg')
-				(substr($asset_name, -5) === '.jpeg')
-				(substr($asset_name, -4) === '.png')
-				(substr($asset_name, -4) === '.ttf')
-				(substr($asset_name, -4) === '.gif')
+				(substr($asset_name, -4) === '.jpg') || 
+				(substr($asset_name, -5) === '.jpeg') || 
+				(substr($asset_name, -4) === '.png') || 
+				(substr($asset_name, -4) === '.ttf') || 
+				(substr($asset_name, -4) === '.gif') || 
 				(substr($asset_name, -5) === '.svg')
 			)
 			{
 				$content = Storage::disk($disk)->get($uri);
-// 				dd($uri);
 				return response($content, 200)->withHeaders([
 					'Content-Type' => 'image',
 					'X-Header-One' => 'Header Value',
