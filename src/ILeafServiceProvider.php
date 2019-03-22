@@ -143,7 +143,14 @@ class ILeafServiceProvider extends Provider
 				$uri = preg_replace('/.md$/', '', $uri) . '/';
 				return redirect($uri);
 			}
-			else
+			elseif (
+				(substr($asset_name, -4) === '.jpg')
+				(substr($asset_name, -5) === '.jpeg')
+				(substr($asset_name, -4) === '.png')
+				(substr($asset_name, -4) === '.ttf')
+				(substr($asset_name, -4) === '.gif')
+				(substr($asset_name, -5) === '.svg')
+			)
 			{
 				$content = Storage::disk($disk)->get($uri);
 // 				dd($uri);
@@ -152,6 +159,13 @@ class ILeafServiceProvider extends Provider
 					'X-Header-One' => 'Header Value',
 					'X-Header-Two' => 'Header Value',
 				]);
+			}
+			else
+			{
+				return response()->download(
+					Storage::disk($disk)->get($uri),
+					$asset_name
+				);
 			}
 		});
 	}
