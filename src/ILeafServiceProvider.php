@@ -161,8 +161,10 @@ class ILeafServiceProvider extends Provider
 			}
 			else
 			{
+				$path = Storage::disk($disk)->getAdapter()->getPathPrefix();
+				$file = $path . $uri;
 				return response()->download(
-					Storage::disk($disk)->get($uri),
+					$file,
 					$asset_name
 				);
 			}
