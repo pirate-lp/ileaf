@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
 	    try {
 		    $uri = $request->path();
 			$leaf = new Leaf($uri);
-			if ( $leaf->uri )
+			if ( $leaf->exists )
 			{
 				return $leaf->show();
 			}
