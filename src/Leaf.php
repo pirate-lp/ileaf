@@ -60,8 +60,8 @@ class Leaf {
 	{
 		$this->exists = false;
 		$this->isAsset();
-		$this->isDirectory();
 		$this->isLeaflet();
+		$this->isDirectory();
 	}
 	public function isAsset()
 	{
