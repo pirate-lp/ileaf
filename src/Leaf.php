@@ -59,9 +59,9 @@ class Leaf {
 	public function exists()
 	{
 		$this->exists = false;
-		$this->isLeaflet();
-		$this->isDirectory();
 		$this->isAsset();
+		$this->isDirectory();
+		$this->isLeaflet();
 	}
 	public function isAsset()
 	{

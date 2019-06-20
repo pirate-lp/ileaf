@@ -17,6 +17,8 @@ use Illuminate\Session\Middleware\StartSession;
 
 trait Leaflet {
 	
+	public $menu;
+	
 	public function isLeaflet()
 	{
 		$path = rtrim($this->uri, '/') . ".md";
@@ -29,7 +31,6 @@ trait Leaflet {
 			
 			$this->exists = true;
 		}
-		
 	}
 	public function initiateLeaflet()
 	{

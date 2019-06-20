@@ -12,6 +12,8 @@ trait Directory {
 		{
 			$this->type = "leaflet";
 			$this->path = $path;
+			$this->initiateLeaflet();
+			
 			$this->exists = true;
 		}
 	}
