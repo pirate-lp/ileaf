@@ -30,14 +30,33 @@ class Leaf {
 	
 	function __construct($uri)
 	{
-		$this->disk = Storage::disk('leaves');
-		$this->disk_name = 'leaves';
-		$this->views_path = config('iatelier-ileaf.views_path');
 		$this->setDomain();
 		
 		$this->uri = $uri;
 		
 		$this->exists();
+	}
+	
+	private function setDomain() {
+		$domains = config('iatelier-ileaf.domain');
+		if ( count($domains) > 0 )
+		{
+			$this->host = $_SERVER['HTTP_HOST'];
+			
+			if ( in_array($this->host, $domains) )
+			{
+				preg_match('/([^.]+)\.[^.]+$/', $this->host, $preg_results);
+				$this->domain = $preg_results[1];
+				$this->disk_name = $this->domain;
+				$this->disk = Storage::disk($this->disk_name);
+				$this->setViewsPath($this->domain);
+				return true;
+			}
+		}
+		$this->disk = Storage::disk('leaves');
+		$this->disk_name = 'leaves';
+		$this->views_path = config('iatelier-ileaf.views_path');
+		return false;
 	}
 	
 	public function show()

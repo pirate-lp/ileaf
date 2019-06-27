@@ -55,25 +55,6 @@ trait Leaflet {
 		$this->views_path = $path;
 	}
 	
-	private function setDomain() {
-		$domains = config('iatelier-ileaf.domain');
-		if ( count($domains) > 0 )
-		{
-			$this->host = $_SERVER['HTTP_HOST'];
-			
-			if ( in_array($this->host, $domains) )
-			{
-				preg_match('/([^.]+)\.[^.]+$/', $this->host, $preg_results);
-				$this->domain = $preg_results[1];
-				$this->disk = Storage::disk($this->domain);
-				
-				$this->setViewsPath($this->domain);
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	
 	public function retriveMetas($file)
 	{
